@@ -24,7 +24,7 @@ namespace IngameScript
     {
     //FROM HERE
         IMyPistonBase Piston;
-        IMyMotorStator Rotor;
+        IMyMotorAdvancedStator Rotor;
         IMyTextPanel LCD;
         IMyCargoContainer Cargo;
         IMyShipDrill Drill;
@@ -36,7 +36,7 @@ namespace IngameScript
         {
             Runtime.UpdateFrequency = UpdateFrequency.Update10;
             Piston = GridTerminalSystem.GetBlockWithName("Ice Piston") as IMyPistonBase;
-            Rotor = GridTerminalSystem.GetBlockWithName("Ice Rotor") as IMyMotorStator;
+            Rotor = GridTerminalSystem.GetBlockWithName("Ice Rotor") as IMyMotorAdvancedStator;
             LCD = GridTerminalSystem.GetBlockWithName("LCD Panel") as IMyTextPanel;
             Cargo = GridTerminalSystem.GetBlockWithName("Ice Cargo") as IMyCargoContainer;
             OnLight = GridTerminalSystem.GetBlockWithName("Ice Light") as IMyInteriorLight;
@@ -64,7 +64,7 @@ namespace IngameScript
             {
                 if (FirstBoot == true)
                 {
-                    Rotor.TargetVelocityRPM = 2;
+                    Rotor.TargetVelocityRPM = (float)0.3;
                     for (int i = 0; i < Drills.Count(); i++)
                     {
                         Drill = (IMyShipDrill)Drills[i];
@@ -76,7 +76,7 @@ namespace IngameScript
                 LCD.WriteText(Rotor.Angle.ToString());
                 if ((float)Rotor.Angle == (float)(2 * Math.PI))
                 {
-                    Piston.MaxLimit += (float)0.1;
+                    Piston.MaxLimit += (float)0.7;
                     Rotor.UpperLimitDeg = 361;
                     LCD.WriteText("0.1 Deeper");
                 }
